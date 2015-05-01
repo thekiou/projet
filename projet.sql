@@ -1,21 +1,19 @@
-//CECI est une modification
-
-
 CREATE TABLE Clients 
 (
-	id_client INT PRIMARY KEY NOT NULL,
+	id_client INT PRIMARY KEY,
 	nom varchar(50),
 	prenom varchar(50),
 	email varchar(255),
+	telephone varchar(10),
 	date_naiss DATE,
 	pays varchar(255),
 	ville varchar(255),
-	adresse varchar(255)
+	adresse varchar(255)	
 );;
 
 CREATE TABLE Produits 
 (
-	id_prod INT PRIMARY KEY NOT NULL,
+	id_prod INT PRIMARY KEY,
 	prix NUMERIC	
 );;
 
@@ -42,7 +40,7 @@ CREATE TABLE Voitures
 
 CREATE TABLE Etablissements
 (
-	id_eta INT PRIMARY KEY NOT NULL,
+	id_etab INT PRIMARY KEY,
 	nom_eta varchar(255),
 	pays varchar(255),
 	ville varchar(255),
@@ -50,19 +48,22 @@ CREATE TABLE Etablissements
 	tel varchar(10)
 );;
 
-CREATE TABLE Resarvation
+CREATE TABLE Reservation
 (
-	id_reser INT PRIMARY KEY NOT NULL,
-	FOREIGN KEY (id_client) REFERENCES Clients (id_client),
-	FOREIGN KEY (id_prod) REFERENCES Produits (id_prod),
+	id_reser INT PRIMARY KEY,
+	id_client INT REFERENCES Clients (id_client),
+	id_prod INT ,--REFERENCES Produits (id_prod),
+	reser TIMESTAMP,
 	debut TIMESTAMP,
 	fin TIMESTAMP
 );;
 
 CREATE TABLE Propose
 (
-	FOREIGN KEY (id_eta) REFERENCES Etablissements (id_eta),
-	FOREIGN KEY (id_prod) REFERENCES Produits (id_prod)
+	id_etab INT NOT NULL,
+	id_prod INT NOT NULL,
+	CONSTRAINT fk_propose_etab FOREIGN KEY (id_etab) REFERENCES Etablissements (id_etab)--,
+	--CONSTRAINT fk_propose_prod FOREIGN KEY (id_prod) REFERENCES Produits (id_prod)
 );;
 
 
